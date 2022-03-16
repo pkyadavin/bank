@@ -4,47 +4,48 @@
         <h4 class=" mt-5">Customer</h4>
     </div> -->
 
-    <ng-template #nodatas>
-
-        <div id="loader"></div>
-
-        <button class="btn btn-sm btn-outline-primary mt-4 mb-4" (click)="createdata()">
-            New Member
-        </button>
-
-    </ng-template>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <button class="btn btn-sm btn-outline-primary mt-4 " (click)="createdata()">
+                Add
+            </button>&nbsp;
+            <button class="btn btn-sm btn-outline-primary mt-4 " (click)="Show()">
+                <ng-template [ngIf]="!showgrid">Show</ng-template> 
+                <ng-template [ngIf]="showgrid">Hide</ng-template> 
+            </button>&nbsp;
+            <button class="btn btn-sm btn-outline-primary mt-4 " (click)="Export()">
+                Export to Excel
+            </button>  &nbsp;
+            <button class="btn btn-sm btn-outline-primary mt-4 " (click)="Import()">
+                Import
+            </button>
+           <!--  &nbsp;
+            <button class="btn btn-sm btn-outline-primary mt-4 " (click)="ExportPDF()">
+                Export to PDF
+            </button>  -->
+        </div>         
+        <div class="form-group col-md-7">
+            
+        </div>
+        <div class="form-group col-md-1">
+            <ng-template [ngIf]="showgrid">
+            <select class="form-control mt-4" name="pagesize" id="pagesize" [(ngModel)]="pagesize" (change)="onChangePageSize()">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+              </select></ng-template>
+        </div>
+      </div>
   
-
-    <ng-template [ngIf]="userdatas.length > 0" [ngIfElse]="nodatas">        
+      <ng-template #nodatas>
+        <ng-template [ngIf]="showgrid">
+        <div id="loader" class="loader" ></div>  
+    </ng-template>
+    </ng-template> 
+    <ng-template [ngIf]="userdatas.length > 0"  [ngIfElse]="nodatas">        
           
-          <div class="form-row">
-            <div class="form-group col-md-4">
-                <button class="btn btn-sm btn-outline-primary mt-4 " (click)="createdata()">
-                    ADD
-                </button>&nbsp;
-                <button class="btn btn-sm btn-outline-primary mt-4 " (click)="Export()">
-                    Export to Excel
-                </button>  &nbsp;
-                <button class="btn btn-sm btn-outline-primary mt-4 " (click)="Import()">
-                    Import
-                </button>
-               <!--  &nbsp;
-                <button class="btn btn-sm btn-outline-primary mt-4 " (click)="ExportPDF()">
-                    Export to PDF
-                </button>  -->
-            </div>         
-            <div class="form-group col-md-7">
-                
-            </div>
-            <div class="form-group col-md-1">
-                <select class="form-control mt-4" name="pagesize" id="pagesize" [(ngModel)]="pagesize" (change)="onChangePageSize()">
-                    <option value="1">1</option>
-                    <option value="3">3</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                  </select>
-            </div>
-          </div>
+        <ng-template [ngIf]="showgrid">
 
         <ag-grid-angular 
             [gridOptions]="gridOptions" 
@@ -56,7 +57,7 @@
             [rowData]="userdatas"
             [columnDefs]="columnDefs"           
           
-        ></ag-grid-angular>
+        ></ag-grid-angular></ng-template>
         
             <div id="pdfdata" #pdfdata style="display: none;">
                    <table style="font-family: arial, sans-serif;border-collapse: collapse;width: 100%;" >

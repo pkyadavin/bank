@@ -53,14 +53,29 @@ export class DisbursementComponent implements OnInit {
     console.log("initColumns");
     let cc=this;
     this.columnDefs = [
-      { headerName: 'id'.toUpperCase(), field: 'id',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Adhar'.toUpperCase(), field: 'Adhar',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Amount'.toUpperCase(), field: 'Amount',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-    
+      // {
+      //   headerName: 'Adr'.toUpperCase(), width: 75, cellRenderer: (param) =>
+      //   this.AdrRenderer(param)
+      // },
     ];
   }
 
+  AdrRenderer(param) {  
+    var element = document.createElement('span');
+    let template = '<i class="fas fa-plus"></i>';
+    element.innerHTML = template;
+    element.addEventListener('click', () => {
+      this.Adrdata(param.data.Adhar);
+    });
+    return element;
+  }
 
+  Adrdata(ID: number) {   
+    this.router.navigate([`/address/${ID}`]);
+  }
+  
   EDITRenderer(param) {  
     var element = document.createElement('span');
     let template = '<i class="fas fa-edit"></i>';
@@ -149,6 +164,10 @@ export class DisbursementComponent implements OnInit {
   onChangePageSize() {
     this.gridOptions.api.paginationSetPageSize(Number(this.pagesize));
     this.gridOptions.api.onFilterChanged();
+  }
+  showgrid=false
+  Show(){
+    this.showgrid=!this.showgrid;
   }
 
 }

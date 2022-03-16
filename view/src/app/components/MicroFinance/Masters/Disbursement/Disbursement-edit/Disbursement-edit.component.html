@@ -15,7 +15,7 @@
 
         <div class="form-group">
             <label for="Adhar">Adhar</label>
-            <input maxlength="60" autocomplete="off" type="text" [ngClass]="{'is-invalid' : hasErrors('Adhar') && isTouched('Adhar'),
+            <input maxlength="12" autocomplete="off" type="text" [ngClass]="{'is-invalid' : hasErrors('Adhar') && isTouched('Adhar'),
                             'is-valid' : !hasErrors('Adhar') && isTouched('Adhar')}"
                 class="form-control form-control-sm" formControlName="Adhar" id="Adhar">
             <div *ngIf="hasError('Adhar', 'required')" class="invalid-feedback">
@@ -35,7 +35,7 @@
                     <option value="20000">20000</option>
                     <option value="30000">30000</option>
                     <option value="40000">40000</option>
-                    <option value="40000">50000</option>                  
+                    <option value="50000">50000</option>                  
                   </select>
 
             <div *ngIf="hasError('Amount', 'required')" class="invalid-feedback">
@@ -53,4 +53,4 @@
     </form>
 
 </div>
-<div *ngIf="showloader" id="loader"></div>
+<div *ngIf="showloader" id="loader" class="loader"></div>

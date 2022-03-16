@@ -53,9 +53,8 @@ export class AddressComponent implements OnInit {
     console.log("initColumns");
     let cc=this;
     this.columnDefs = [
-      { headerName: 'id'.toUpperCase(), field: 'id',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Adhar'.toUpperCase(), field: 'Adhar',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Address'.toUpperCase(), field: 'Address',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      { headerName: 'Address'.toUpperCase(), field: 'Address',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 300 ,floatingFilter:true  },
     
     ];
   }
@@ -151,5 +150,8 @@ export class AddressComponent implements OnInit {
     this.gridOptions.api.paginationSetPageSize(Number(this.pagesize));
     this.gridOptions.api.onFilterChanged();
   }
-
+  showgrid=false
+  Show(){
+    this.showgrid=!this.showgrid;
+  }
 }

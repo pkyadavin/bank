@@ -44,10 +44,13 @@ export class AddressEditComponent  implements OnInit , AfterViewInit{
   ngOnInit(): void {
 
      this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-
+     let adhar="";
+     if(this.id!=-1 ){
+       adhar=this.id.toString();
+     }
     this.dataForm = this.formBuilder.group({
-      id: [this.id],      
-      Adhar	: ['', [Validators.required,Validators.minLength(12),Validators.maxLength(12) ]],     
+      id: [-1],      
+      Adhar	: [adhar, [Validators.required,Validators.minLength(12),Validators.maxLength(12) ]],     
       Address	: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(2000) ]], 
 
     });
@@ -64,14 +67,14 @@ export class AddressEditComponent  implements OnInit , AfterViewInit{
     // this.dataService.getCenter(this.accountService.currentUserValue.applicationUserId).subscribe(res => {
     //   this.centerlist= res;              
     // }); 
-    if (!!this.id  && this.id  !== -1) {
-      this.showloader=true;
-      this.AddressService.get(this.id ).subscribe(data => {
-        console.log(JSON.stringify(data)  );
-        this.updateForm(data);
-        this.showloader=false;
-      });
-    }
+    // if (!!this.id  && this.id  !== -1) {
+    //   this.showloader=true;
+    //   this.AddressService.get(this.id ).subscribe(data => {
+    //     console.log(JSON.stringify(data)  );
+    //     this.updateForm(data);
+    //     this.showloader=false;
+    //   });
+    // }
   }
  
   ngAfterViewInit() {
@@ -125,7 +128,7 @@ dob;
 
   onSubmit() {    
     let data: Address = new Address(); 
-    data.id=this.id; 
+    data.id=-1; 
     data.Adhar=this.dataForm.get("Adhar").value;   
     data.Address= (this.dataForm.get("Address").value);   
     this.AddressService.create(data).subscribe(createddata => {

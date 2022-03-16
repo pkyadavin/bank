@@ -55,16 +55,18 @@ export class dueComponent implements OnInit {
     this.columnDefs = [
       
       { headerName: 'Adhar'.toUpperCase(), field: 'Adhar',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      { headerName: 'Due'.toUpperCase(), field: 'Pending',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      { headerName: 'Paid'.toUpperCase(), field: 'Collection',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      { headerName: 'Payable'.toUpperCase(), field: 'Due',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Address'.toUpperCase(), field: 'Address',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 350 ,floatingFilter:true  },
-      { headerName: 'Due'.toUpperCase(), field: 'Due',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Collection'.toUpperCase(), field: 'Collection',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Pending'.toUpperCase(), field: 'Pending',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       {
-        headerName: 'Add'.toUpperCase(), width: 75, cellRenderer: (param) =>
+        headerName: 'Ins'.toUpperCase(), width: 75, cellRenderer: (param) =>
         this.EDITRenderer(param)
-      }
+      },
+    
     ];
   }
+
 
 
   EDITRenderer(param) {  
@@ -159,5 +161,8 @@ export class dueComponent implements OnInit {
     this.gridOptions.api.paginationSetPageSize(Number(this.pagesize));
     this.gridOptions.api.onFilterChanged();
   }
-
+  showgrid=false
+  Show(){
+    this.showgrid=!this.showgrid;
+  }
 }
