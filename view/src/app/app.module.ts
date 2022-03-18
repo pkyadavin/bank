@@ -39,6 +39,7 @@ import { dueComponent } from './components/MicroFinance/Masters/due/due/due.comp
 import { AddressComponent } from './components/MicroFinance/Masters/address/address/address.component';
 import { AddressEditComponent } from './components/MicroFinance/Masters/address/address-edit/address-edit.component';
 import { AddressImportComponent } from './components/MicroFinance/Masters/address/address-import/address-import.component';
+import { PassbookEditComponent } from './components/MicroFinance/Masters/Disbursement/Passbook/Passbook.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { AddressImportComponent } from './components/MicroFinance/Masters/addres
     dueComponent,
     AddressComponent,
     AddressEditComponent,
-    AddressImportComponent
+    AddressImportComponent,
+    PassbookEditComponent
   ],
   imports: [
     BrowserModule,

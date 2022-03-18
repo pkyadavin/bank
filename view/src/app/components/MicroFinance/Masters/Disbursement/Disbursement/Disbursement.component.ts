@@ -1,6 +1,7 @@
  
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +21,7 @@ export class DisbursementComponent implements OnInit {
   gridOptions: GridOptions;
   userdatas: Disbursement[];
   columnDefs = [];
-
+ 
   frameworkComponents:any;
   constructor(
     private DisbursementService: DisbursementService,
@@ -29,6 +30,7 @@ export class DisbursementComponent implements OnInit {
     private accountService: AccountService,
     public excelService: ExcelService,
     private datePipe:DatePipe,
+
   ) {
     this.gridOptions = <GridOptions>{
  
@@ -42,6 +44,7 @@ export class DisbursementComponent implements OnInit {
   ngOnInit(): void {
     this.userdatas = [];
     let currentApplicationUserId = this.accountService.currentUserValue.applicationUserId;
+
     this.DisbursementService.getByApplicationUserId(currentApplicationUserId).subscribe(userdatas => {
       this.userdatas = userdatas;
       console.log(userdatas);
@@ -55,6 +58,11 @@ export class DisbursementComponent implements OnInit {
     this.columnDefs = [
       { headerName: 'Adhar'.toUpperCase(), field: 'Adhar',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Amount'.toUpperCase(), field: 'Amount',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      {
+        headerName: 'Passbook'.toUpperCase(), width: 150, cellRenderer: (param) =>
+        this.EDITRenderer(param)
+      },
+    
       // {
       //   headerName: 'Adr'.toUpperCase(), width: 75, cellRenderer: (param) =>
       //   this.AdrRenderer(param)
@@ -73,12 +81,12 @@ export class DisbursementComponent implements OnInit {
   }
 
   Adrdata(ID: number) {   
-    this.router.navigate([`/address/${ID}`]);
+    this.router.navigate([`/passbook/${ID}`]);
   }
   
   EDITRenderer(param) {  
     var element = document.createElement('span');
-    let template = '<i class="fas fa-edit"></i>';
+    let template = '<i class="fas fa-eye"></i>';
     element.innerHTML = template;
     element.addEventListener('click', () => {
       this.editdata(param.data.id);
@@ -121,7 +129,7 @@ export class DisbursementComponent implements OnInit {
   }
 
   editdata(ID: number) {   
-    this.router.navigate([`/Disbursement/${ID}`]);
+    this.router.navigate([`/passbook/${ID}`]);
   }
 
   createdata() { 

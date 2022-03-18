@@ -19,8 +19,8 @@ export class dueComponent implements OnInit {
   pagesize = 10;
   gridOptions: GridOptions;
   userdatas: due[];
-  columnDefs = [];
-
+  columnDefs = []; 
+  searchwords;
   frameworkComponents:any;
   constructor(
     private dueService: dueService,
@@ -28,24 +28,32 @@ export class dueComponent implements OnInit {
     private toastr: ToastrService,
     private accountService: AccountService,
     public excelService: ExcelService,
-    private datePipe:DatePipe,
+    private datePipe:DatePipe,  
   ) {
     this.gridOptions = <GridOptions>{
  
     }
-    this.gridOptions.paginationPageSize=this.pagesize;
-   // this.gridOptions.floatingFilter=true;
- 
+    this.gridOptions.paginationPageSize=this.pagesize; 
     this.initColumns();
   }
 
   ngOnInit(): void {
-    this.userdatas = [];
+    this.userdatas = [];  
     let currentApplicationUserId = this.accountService.currentUserValue.applicationUserId;
     this.dueService.getByApplicationUserId(currentApplicationUserId).subscribe(userdatas => {
       this.userdatas = userdatas;
       console.log(userdatas);
     });
+  }
+
+  search(){ 
+    this.userdatas = this.userdatas.filter(v=>v.Address && v.Address.indexOf(this.searchwords)>-1).slice(); 
+    this.onChangePageSize();
+    if(this.userdatas.length>0){
+      this.showgrid=true;
+    }else{
+      this.showgrid=false;
+    }    
   }
 
   defaultColDef;
@@ -56,9 +64,11 @@ export class dueComponent implements OnInit {
       
       { headerName: 'Adhar'.toUpperCase(), field: 'Adhar',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
       { headerName: 'Due'.toUpperCase(), field: 'Pending',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Paid'.toUpperCase(), field: 'Collection',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Payable'.toUpperCase(), field: 'Due',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
-      { headerName: 'Address'.toUpperCase(), field: 'Address',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 350 ,floatingFilter:true  },
+      
+      // { headerName: 'Paid'.toUpperCase(), field: 'Collection',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      // { headerName: 'Payable'.toUpperCase(), field: 'Due',editable: true, sortable: true, filter: 'agTextColumnFilter', width: 150 ,floatingFilter:true  },
+      
+      { headerName: 'Address'.toUpperCase(), field: 'Address',editable: true, sortable: true , width: 350   },
       {
         headerName: 'Ins'.toUpperCase(), width: 75, cellRenderer: (param) =>
         this.EDITRenderer(param)
@@ -127,6 +137,7 @@ export class dueComponent implements OnInit {
   }
 
   Export() {
+ 
     let array = this.userdatas.map(v => {
       return {
       //  id: v.id.toString(),        
@@ -163,6 +174,8 @@ export class dueComponent implements OnInit {
   }
   showgrid=false
   Show(){
+    // this.searchwords='';
+    // this.search();
     this.showgrid=!this.showgrid;
   }
 }

@@ -19,6 +19,7 @@ import { dueComponent } from './components/MicroFinance/Masters/due/due/due.comp
 import { AddressComponent } from './components/MicroFinance/Masters/address/address/address.component';
 import { AddressImportComponent } from './components/MicroFinance/Masters/address/address-import/address-import.component';
 import { AddressEditComponent } from './components/MicroFinance/Masters/address/address-edit/address-edit.component';
+import { PassbookEditComponent } from './components/MicroFinance/Masters/Disbursement/Passbook/Passbook.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'Disbursement', component: DisbursementComponent, canActivate: [AuthGuard]},
   {path: 'Disbursement/:id', component: DisbursementEditComponent, canActivate: [AuthGuard]},
   {path: 'Disbursementimport', component: DisbursementImportComponent, canActivate: [AuthGuard]},
+  {path: 'passbook/:id', component: PassbookEditComponent, canActivate: [AuthGuard]},
 
   {path: 'address', component: AddressComponent, canActivate: [AuthGuard]},
   {path: 'address/:id', component: AddressEditComponent, canActivate: [AuthGuard]},
